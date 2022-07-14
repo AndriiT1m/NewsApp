@@ -9,8 +9,6 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
-    private var countryList = ["Australia", "Canada", "Japan", "Ukraine", "United States", "Germany", "Czech Republic", "Italy", "France", "Mexico", "China", "Poland", "Brazil", "Sweden", "India"]
-    
     private var country: String = "us"
     private var tableView: UITableView!
     override func viewDidLoad() {
@@ -36,7 +34,7 @@ class MenuViewController: UIViewController {
 
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countryList.count
+        return MenuModel.allCases.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum MenuModel: Int {
+enum MenuModel: Int, CaseIterable {
     case Australia, Canada, Japan, Ukraine, UnitedStates, Germany, CzechRepublic, Italy, France, Mexico, China, Poland, Brazil, Sweden, India
     
     var description: String {
