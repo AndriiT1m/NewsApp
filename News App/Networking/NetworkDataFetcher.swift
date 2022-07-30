@@ -16,7 +16,6 @@ class NetworkDataFetcher {
             case .success(let data):
                 do {
                     let result = try JSONDecoder().decode(APIResponse.self, from: data)
-                    print("Articals \(result.articles.count)")
                     response(.success(result.articles))
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)

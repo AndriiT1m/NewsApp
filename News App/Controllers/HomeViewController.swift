@@ -205,9 +205,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UISear
             UIAction(title: NSLocalizedString(title, comment: ""),
                      image: UIImage(systemName: img)) { action in
                 
+                let index = self.saveNews.firstIndex(where: {$0.url == articles.url})
+                
                 if isFavorite {
-                    let item = self.saveNews.indices[indexPath.row]
-                    self.saveNews.remove(at: item)
+                    self.saveNews.remove(at: index!)
                 } else {
                     self.saveNews.append(articles)
                 }

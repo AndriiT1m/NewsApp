@@ -51,6 +51,7 @@ class NetworkService  {
                 complition(.failure(error))
                 return
             }
+            
             guard let data = data else { return }
             complition(.success(data))
         }.resume()
