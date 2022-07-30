@@ -21,7 +21,6 @@ class HomeViewController: UIViewController {
     private var articles = [Articles]()
     private var activityViewController: UIActivityViewController? = nil
     private var saveNews = [NewsTableViewCellViewModel]()
-    private let defaults = UserDefaults.standard
     
     private var dateLable: UILabel = {
         let date = Date()
@@ -82,11 +81,12 @@ class HomeViewController: UIViewController {
     }
     
     private func getNews() {
-        let saveData = UserDefaults.standard.object(forKey: "SaveData") as? Data
+        let saveData = UserDefaultsHelper.getData(type: Data.self, forKey: .saveNews)
+
         guard let saveData = saveData else { return }
-        guard let item = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(saveData) as? [NewsTableViewCellViewModel] else {return}
+        guard let item = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(saveData)
+                as? [NewsTableViewCellViewModel] else {return}
         saveNews = item
-        self.defaults.synchronize()
     }
     
     private func addSubView() {
@@ -215,14 +215,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UISear
                 
                 if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: self.saveNews,
                                                                     requiringSecureCoding: false) {
-                    self.defaults.set(saveData, forKey: "SaveData")
-                    self.defaults.synchronize()
+                    UserDefaultsHelper.setData(value: saveData, key: .saveNews)
                 }
             }
             
             return UIMenu(title: "", children: [inspectAction, storeAction])
         }
     }
+    
     func tableViewStore(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

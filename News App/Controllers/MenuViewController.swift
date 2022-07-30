@@ -74,9 +74,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-        
-        UserDefaults.standard.set(country, forKey: "country")
-        UserDefaults.standard.synchronize()
+        UserDefaultsHelper.setData(value: country, key: .country)
 
         NotificationCenter.default.post(name: NSNotification.Name("restatrt"), object: self)
     }

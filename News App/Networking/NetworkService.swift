@@ -25,7 +25,7 @@ class NetworkService  {
     }
     
     @objc private func loadCountry() {
-        country = UserDefaults.standard.string(forKey: "country") ?? "us"
+        country = UserDefaultsHelper.getData(type: String.self, forKey: .country) ?? "us"
         urlString = URL(string: "https://newsapi.org/v2/top-headlines?country=\(country)&pageSize=50&apiKey=3f5b4bd2e1f249f186bc7c202a1e14b2")!
     }
     

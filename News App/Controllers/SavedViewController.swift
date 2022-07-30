@@ -35,7 +35,7 @@ class SavedViewController: UIViewController {
     }
     
     private func getNews() {
-        let saveData = UserDefaults.standard.object(forKey: "SaveData") as? Data
+        let saveData = UserDefaultsHelper.getData(type: Data.self, forKey: .saveNews)
         guard let saveData = saveData else { return }
         guard let item = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(saveData) as? [NewsTableViewCellViewModel] else {return}
         items = item
@@ -94,7 +94,6 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
             UIAction(title: NSLocalizedString("Remove from saved", comment: ""),
                      image: UIImage(systemName: "bookmark.fill")) { [self] action in
                 
-                let defaults = UserDefaults.standard
                 let item = self.items.indices[indexPath.row]
                 
                 items.remove(at: item)
@@ -106,8 +105,7 @@ extension SavedViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if let saveData = try? NSKeyedArchiver.archivedData(withRootObject: items,
                                                                     requiringSecureCoding: false) {
-                    defaults.set(saveData, forKey: "SaveData")
-                    defaults.synchronize()
+                    UserDefaultsHelper.setData(value: saveData, key: .saveNews)
                 }
             }
             return UIMenu(title: "", children: [inspectAction, storeAction])
