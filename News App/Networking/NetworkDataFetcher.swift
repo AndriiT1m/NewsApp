@@ -18,7 +18,7 @@ class NetworkDataFetcher {
                     let result = try JSONDecoder().decode(APIResponse.self, from: data)
                     response(.success(result.articles))
                 } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
+                    print("Failed to decode JSON", jsonError.localizedDescription)
                 }
             case .failure(let error):
                 print("Error received requesting data: \(error.localizedDescription)")

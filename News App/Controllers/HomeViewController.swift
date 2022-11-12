@@ -260,4 +260,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UISear
             }
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        reloadFetcher()
+    }
 }
